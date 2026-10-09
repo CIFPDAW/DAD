@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dev.danoglez.helloworldidea.RegisterController" stylesheets="@styles.css" prefHeight="400.0" prefWidth="400.0" fx:id="rootPane">
+    <padding>
+        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0"/>
+    </padding>
+
+    <Label text="Registro de Usuario" styleClass="title"/>
+
+    <VBox spacing="5.0">
+        <Label text="Usuario (min 3 caracteres)"/>
+        <TextField fx:id="txtUser" promptText="Introduce tu usuario"/>
+    </VBox>
+
+    <VBox spacing="5.0">
+        <Label text="Contraseña"/>
+        <PasswordField fx:id="txtPassword" promptText="Introduce tu contraseña"/>
+    </VBox>
+
+    <VBox spacing="5.0">
+        <Label text="E-mail"/>
+        <TextField fx:id="txtEmail" promptText="Introduce tu e-mail"/>
+    </VBox>
+
+    <HBox spacing="10.0" alignment="CENTER">
+        <Button text="Crear Usuario" onAction="#onRegisterClick" styleClass="button"/>
+        <Button text="Volver" onAction="#onBackClick" styleClass="button, button-secondary"/>
+    </HBox>
+</VBox>

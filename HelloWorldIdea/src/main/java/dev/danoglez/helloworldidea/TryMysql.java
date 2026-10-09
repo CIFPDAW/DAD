@@ -11,13 +11,11 @@ public class TryMysql {
     private static String DB_USER;
     private static String DB_PASSWORD;
 
-    static Connection conn = null;
-
     // Carga directa y sencilla del archivo properties
     static {
-        try (FileInputStream fis = new FileInputStream("db.properties")) {
+        try (java.io.InputStreamReader reader = new java.io.InputStreamReader(new FileInputStream("db.properties"), java.nio.charset.StandardCharsets.UTF_8)) {
             Properties props = new Properties();
-            props.load(fis);
+            props.load(reader);
 
             JDBC_URL = props.getProperty("DB_URL");
             DB_USER = props.getProperty("DB_USER");
@@ -27,33 +25,47 @@ public class TryMysql {
         }
     }
 
-    static boolean validate(String user, String password) {
+    public static boolean validate(String user, String password) {
         boolean ctrl = false;
-        try {
-            conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
-            String query = "SELECT user_name, user_password FROM users";
-            ResultSet rs = conn.createStatement().executeQuery(query);
-
-            while (rs.next()) {
-                if (rs.getString("user_name").equals(user) && rs.getString("user_password").equals(password))
-                    ctrl = true;
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT user_name, user_password FROM users WHERE user_name = ? AND user_password = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, user);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                ctrl = true;
             }
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLException en validate: " + ex.getMessage());
         }
         return ctrl;
     }
 
-    static void create_user(String user, String password) {
-        try {
-            conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
-            String query = "INSERT INTO users (user_name,user_password) VALUES (?,?)";
-            PreparedStatement insertStatement = conn.prepareStatement(query);
-            insertStatement.setString(1, user);
-            insertStatement.setString(2, password);
-            insertStatement.executeUpdate();
+    public static boolean create_user(String user, String password, String email) {
+        boolean ctrl = false;
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD)) {
+            // Verificar primero si el usuario ya existe
+            String checkQuery = "SELECT user_name FROM users WHERE user_name = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, user);
+            ResultSet rs = checkStmt.executeQuery();
+            
+            if (!rs.next()) { // El usuario no existe, procedemos a crear
+                String query = "INSERT INTO users (user_name, user_password, e_mail) VALUES (?, ?, ?)";
+                PreparedStatement insertStatement = conn.prepareStatement(query);
+                insertStatement.setString(1, user);
+                insertStatement.setString(2, password);
+                insertStatement.setString(3, email);
+                
+                if (insertStatement.executeUpdate() == 1) {
+                    ctrl = true;
+                }
+            }
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLException en create_user: " + ex.getMessage());
         }
+        return ctrl;
     }
 }

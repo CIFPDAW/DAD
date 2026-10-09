@@ -1,0 +1,107 @@
+SUCESIÓN DE DIFERENTES PANTALLAS EN UNA MISMA VENTANA
+
+Una de las respuestas más habituales a la interacciónn con el usuario en cualquier aplicación es la sucesión de diferentes "pantallas" o escenas, en función de cómo el usuario "navegue" o interactúe con nuestra app haciendo click en los diferentes widgets.
+
+En el entorno NetBeans u otras herramientas de diseño gráfico similares, cada pantalla o escena lleva asociado 2 archivos que se generan automáticamente: un archivo .fxlm generado por SceneBuilder y un Controller.java vinculado al anterior, en donde se añade el código que implementa la respuesta de los widgets interactivos,.
+
+Una práctica habitual a la hora de añadir código al Controller consiste en asignar tipo de acceso privado para todos los controles o widgets, evitando así posibles conflictos con elementos de otros controladores (propios o importados), como podría ser, por ejemplo redundancia de identificadores.
+
+Esta práctica habitual impide sin embargo el acceso a los distintos elementos declarados en el Controller desde la clase principal y cualquier otra clase.
+
+Una manera sencilla de salvar este obstáculo consiste en implementar un "conmutador" o switcher construido a base de objetos tipo  BooleanProperty para cada una de las escenas que contiene nuestra aplicación, asociando un evento.
+
+Ejemplo: supongamos que tenemos nuestra aplicación cuenta con hasta 5 "pantallas" o escenas distintas:
+
+#########################################################################
+
+############ MAIN CLASS ################################################
+
+import javafx.beans.property.*;
+
+public class Principal {
+
+// Add Boolean Properties
+
+public static BooleanProperty[] switcher = new SimpleBooleanProperty[5];
+
+int i;
+
+// Implement switch_screen method
+
+public static void switch_screen(int j) {
+
+for (BooleanProperty obj: switcher) obj.setValue(false);
+
+switcher[j].setValue(true);
+
+ } // close method
+
+@Override
+
+public void start(Stage primaryStage) {
+
+Parent screen_0 = FXMLLoader.load(getClass().getResource("scene_0.fxml"));
+
+Parent screen_1 = FXMLLoader.load(getClass().getResource("scene_1.fxml"));
+
+Parent screen_2 = FXMLLoader.load(getClass().getResource("scene_2.fxml"));
+
+Parent screen_3 = FXMLLoader.load(getClass().getResource("scene_3.fxml"));
+
+Parent screen_4 = FXMLLoader.load(getClass().getResource("scene_4.fxml"));
+
+Parent[] screen = {screen_0, screen_1, screen_2, screen_3, screen_4};
+
+// Initialize values and add listeners:
+
+for (i = 0; i < switcher.length; i++) {
+
+switcher[i].setValue = false;
+
+switcher[i].addListener( (i,oldvalue,newvalue) -> {
+
+if (newvalue) {
+
+primaryStage.setTitle("Screen " + i);
+
+primaryStage.setScene(new Scene(screen[i]);
+
+}
+
+   });
+
+} // close for loop
+
+// Initialize window:
+
+switch_screen(0);
+
+primaryStage.show();
+
+} // close start method
+
+   }
+
+############################################################
+
+Código para el controlador:
+
+public class Screen_i_Controller { // Controller for ith-screen
+
+// The following control triggers screen change
+
+@FXML private next_screen; // this control triggers a different screen to be displayed
+
+    public void initialize() {
+    next_screen.setOnMouseClicked( e -> {
+
+// Invoke Principal.swith_screen method
+
+Principal.switch_screen(next_screen_index);
+
+  // Add additional code if appropiate...
+
+ });
+
+     }
+}
