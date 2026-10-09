@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.12.1</junit.version>
+        <exec.mainClass>dev.danoglez.helloworldidea.Main</exec.mainClass>
     </properties>
 
     <dependencies>
