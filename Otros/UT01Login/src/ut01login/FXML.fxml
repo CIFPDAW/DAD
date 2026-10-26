@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+================================================================================
+ VISTA DE LOGIN  (FXML = la "interfaz" escrita en XML; se puede editar a mano
+                  o con Scene Builder)
+================================================================================
+
+ 1) <?import ...?>  = como los import de Java: cada tipo de control que uses
+    (Button, Label, VBox...) tiene que estar importado aquí arriba.
+    Si usas un control sin importarlo -> error al cargar el FXML.
+
+ 2) En el NODO RAÍZ (el primer elemento, aquí AnchorPane) van dos cosas clave:
+
+    fx:controller="ut01login.FXMLController"
+        -> la clase Java que maneja esta ventana (paquete.Clase).
+
+    stylesheets="@estilos.css"
+        -> VINCULA LA HOJA DE ESTILOS.
+           La @ significa "ruta relativa a ESTE fxml". Como estilos.css está en
+           la misma carpeta, basta con @estilos.css.
+           Si estuviera en otra carpeta:  @../css/estilos.css
+           Con esta línea, todo el CSS se aplica a este FXML. No hace falta nada más.
+
+           En Scene Builder: selecciona el nodo raíz > panel "Properties" >
+           "Stylesheets" > "+" y eliges estilos.css (escribe esto mismo).
+
+ 3) fx:id="nombre"  -> identifica el control para poder usarlo desde el
+    controlador (atributo @FXML con el MISMO nombre).
+
+ 4) styleClass="titulo"  -> le pone una CLASE CSS (en el .css: .titulo {...}).
+    Es opcional: el CSS ya da estilo a todos los Label/Button/TextField sin
+    ponerles nada.
+    Varias clases a la vez: styleClass="titulo, otra"
+    También se puede poner estilo directo:  style="-fx-text-fill: red;"
+================================================================================
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+ AnchorPane: posiciona los hijos con coordenadas absolutas (layoutX / layoutY).
+ prefWidth / prefHeight = tamaño preferido de la ventana (600 x 400).
+ min/max = -Infinity  ->  "usa el tamaño preferido" (lo pone Scene Builder).
+ xmlns / xmlns:fx -> espacios de nombres obligatorios, no se tocan.
+-->
+<AnchorPane fx:id="ap1"
+            maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0"
+            prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ut01login.FXMLController"
+            stylesheets="@estilos.css">
+
+    <children>
+
+        <!-- Título. Ocupa todo el ancho (600) y alignment="CENTER" lo centra.
+             styleClass="titulo" -> usa la regla .titulo del CSS. -->
+        <Label text="Iniciar sesión"
+               layoutX="0.0"
+               layoutY="45.0"
+               prefWidth="600.0"
+               alignment="CENTER"
+               styleClass="titulo"/>
+
+        <!-- VBox: coloca los hijos en VERTICAL, uno debajo de otro.
+             spacing = separación entre ellos (20 px). -->
+        <VBox fx:id="vbox1"
+              layoutX="89.0"
+              layoutY="128.0"
+              prefHeight="72.0"
+              prefWidth="409.0"
+              spacing="20.0">
+
+            <children>
+                <!-- promptText = texto gris de ayuda cuando está vacío -->
+                <TextField fx:id="tf1"
+                           promptText="Usuario" />
+
+                <!-- PasswordField = TextField que oculta lo escrito (●●●) -->
+                <PasswordField fx:id="pf1"
+                               promptText="Contraseña" />
+            </children>
+        </VBox>
+
+        <!-- HBox: coloca los hijos en HORIZONTAL, uno al lado de otro. -->
+        <HBox fx:id="hbox1"
+              layoutX="120.0"
+              layoutY="213.0"
+              prefHeight="100.0"
+              prefWidth="360.0">
+
+            <children>
+                <!-- mnemonicParsing="false": el "_" en el texto no se usa como
+                     atajo de teclado (lo pone Scene Builder por defecto).
+                     Alternativa a setOnAction en Java:  onAction="#acceder" -->
+                <Button fx:id="button1"
+                        mnemonicParsing="false"
+                        text="Acceder">
+                    <!-- Margen de este botón DENTRO del HBox -->
+                    <HBox.margin>
+                        <Insets left="35.0" top="30.0" />
+                    </HBox.margin>
+                </Button>
+
+                <!-- styleClass="boton-secundario" -> botón gris (ver CSS).
+                     Si lo quitas, se queda azul como el otro. -->
+                <Button fx:id="button2"
+                        mnemonicParsing="false"
+                        text="Nuevo registro"
+                        styleClass="boton-secundario">
+                    <HBox.margin>
+                        <Insets left="15.0" top="30.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+
+        <!-- Label invisible (visible="false"); se podría usar desde el
+             controlador para mostrar mensajes en vez de un Alert. -->
+        <Label fx:id="label1"
+               layoutX="54.0"
+               layoutY="355.0"
+               text=""
+               visible="false" />
+
+    </children>
+</AnchorPane>

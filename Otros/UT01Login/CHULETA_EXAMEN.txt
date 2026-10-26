@@ -1,0 +1,132 @@
+==============================================================================
+ CHULETA – JavaFX + FXML + CSS + MySQL   (proyecto UT01Login)
+==============================================================================
+
+1) ESTRUCTURA DEL PROYECTO
+------------------------------------------------------------------------------
+  src/ut01login/
+    UT01Login.java          -> main + start(): carga FXML.fxml y abre la ventana
+    FXML.fxml               -> diseño de la ventana de LOGIN
+    FXMLController.java     -> lógica del login (botones, validar, abrir registro)
+    Registro.fxml           -> diseño de la ventana de REGISTRO
+    RegistroController.java -> lógica del registro (validar e insertar en BD)
+    MySQL.java              -> conexión y consultas a la base de datos
+    estilos.css             -> estilos (vale para cualquier FXML)
+
+  Flujo:  main() -> launch() -> start() -> carga FXML.fxml
+          -> JavaFX crea FXMLController -> initialize() -> asigna botones
+          -> botón "Nuevo registro" -> abre Registro.fxml (modal)
+          -> RegistroController -> MySQL.registrarUsuario(...) -> cierra
+
+  Jerarquía:  Stage (ventana) > Scene (contenido, aquí van los CSS) > root (FXML)
+
+
+2) UNIR FXML  <->  CONTROLADOR
+------------------------------------------------------------------------------
+  En el NODO RAÍZ del fxml:   fx:controller="ut01login.FXMLController"
+  En el control del fxml:     <TextField fx:id="tf1"/>
+  En el controlador:          @FXML private TextField tf1;   (MISMO nombre y tipo)
+
+  Eventos (elige una forma):
+    a) En initialize():    button1.setOnAction(e -> acceder());
+    b) En el FXML:         <Button onAction="#acceder"/>
+       y en Java:          @FXML private void acceder() { ... }
+
+  Errores típicos:
+    - NullPointerException al usar un control -> el fx:id no coincide con el atributo
+    - "Location is not set" -> nombre del .fxml mal escrito en getResource(...)
+    - ClassNotFoundException del controlador -> fx:controller mal (falta el paquete)
+
+
+3) UNIR CSS  <->  FXML
+------------------------------------------------------------------------------
+  a) En el nodo raíz del FXML:   stylesheets="@estilos.css"
+  b) Scene Builder: nodo raíz > Properties > Stylesheets > +
+  c) En Java:
+     scene.getStylesheets().add(getClass().getResource("estilos.css").toExternalForm());
+
+  estilos.css usa los selectores por defecto (.label, .button, .text-field...),
+  así que con vincularlo YA se aplica. Extras opcionales con styleClass:
+     titulo, subtitulo, texto-error, texto-ok, form-card,
+     boton-secundario, boton-peligro
+  Ej:  <Button text="Borrar" styleClass="boton-peligro"/>
+  Para cambiar todos los colores: variables al principio de .root en el CSS.
+
+  CSS JavaFX: siempre prefijo -fx-  |  color de texto = -fx-text-fill
+              .clase   #fx:id   :hover :focused :pressed :disabled
+
+
+4) PLANTILLAS JAVA
+------------------------------------------------------------------------------
+  // Abrir otra ventana (modal)
+  Stage actual = (Stage) unBoton.getScene().getWindow();
+  FXMLLoader loader = new FXMLLoader(getClass().getResource("Otra.fxml"));
+  Parent root = loader.load();                 // lanza IOException
+  Stage nueva = new Stage();
+  nueva.setTitle("Título");
+  nueva.setScene(new Scene(root));
+  nueva.initOwner(actual);
+  nueva.initModality(Modality.WINDOW_MODAL);
+  nueva.showAndWait();                         // espera a que se cierre
+
+  // Pasar datos a la otra ventana (antes de showAndWait):
+  OtraController c = loader.getController();
+  c.setUsuario(usuario);                       // método público que tú creas
+
+  // Cerrar la ventana actual
+  ((Stage) unBoton.getScene().getWindow()).close();
+
+  // Alert simple
+  Alert a = new Alert(Alert.AlertType.INFORMATION);   // WARNING, ERROR...
+  a.setTitle("Título"); a.setHeaderText(null); a.setContentText("Mensaje");
+  a.showAndWait();
+
+  // Alert de confirmación
+  Alert c = new Alert(Alert.AlertType.CONFIRMATION, "¿Seguro?");
+  Optional<ButtonType> r = c.showAndWait();
+  if (r.isPresent() && r.get() == ButtonType.OK) { ... }
+
+  // Leer / escribir controles
+  String t = tf1.getText().trim();   tf1.setText("");   tf1.clear();
+  label1.setText("Hola");  label1.setVisible(true);
+  boton.setDisable(true);  boton.setDefaultButton(true);  // ENTER lo pulsa
+
+
+5) PLANTILLAS JDBC (MySQL)
+------------------------------------------------------------------------------
+  URL:  "jdbc:mysql://localhost:3306/NOMBRE_BD"
+  Necesita el jar mysql-connector-j en Libraries.
+
+  // SELECT
+  String sql = "SELECT * FROM users WHERE user_name = ?";
+  try (Connection con = conectar();
+       PreparedStatement ps = con.prepareStatement(sql)) {
+      ps.setString(1, valor);                  // los ? empiezan en 1
+      try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {                  // una vuelta por fila
+              String n = rs.getString("user_name");
+          }
+      }
+  }
+
+  // INSERT / UPDATE / DELETE
+  try (Connection con = conectar();
+       PreparedStatement ps = con.prepareStatement(sql)) {
+      ps.setString(1, a); ps.setString(2, b);
+      int filas = ps.executeUpdate();          // filas afectadas
+  }
+
+  ¿Por qué PreparedStatement con ? -> evita la INYECCIÓN SQL.
+  ¿Por qué try-with-resources      -> cierra conexión/ps/rs automáticamente.
+  Strings se comparan con .equals(), nunca con ==.
+
+
+6) LAYOUTS (paneles)
+------------------------------------------------------------------------------
+  AnchorPane -> posición fija con layoutX / layoutY
+  VBox       -> hijos en vertical   (spacing, alignment, padding)
+  HBox       -> hijos en horizontal
+  StackPane  -> apila y centra los hijos
+  GridPane   -> filas y columnas (GridPane.rowIndex / columnIndex)
+  BorderPane -> top, bottom, left, right, center
+  padding = espacio interior  |  margin = espacio exterior

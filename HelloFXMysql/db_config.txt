@@ -1,5 +1,6 @@
-host=188.245.93.31
-port=3306
-database=dad
-user=dad
-password=tu_contraseña_segura
+ruta=localhost:3306/logins
+usuario=cesar
+contrasena=Cesar1234!
+tabla=users
+columnaUsuario=user_name
+columnaContrasena=user_password

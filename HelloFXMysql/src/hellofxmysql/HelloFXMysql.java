@@ -1,35 +1,23 @@
 package hellofxmysql;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class HelloFXMysql extends Application {
-
-    private static Stage primaryStage;
 
     @Override
     public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloFXMysql.class.getResource("Hello.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 420, 480);
-        stage.setTitle("Login");
-        stage.setScene(scene);
+        // Si hay configuración guardada en el .txt, la cargamos al arrancar
+        MySQL.bd = MySQL.cargarDesdeArchivo();
+
+        Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));
+        stage.setTitle("LOGINFX");
+        stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    public static void setRoot(String fxml, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloFXMysql.class.getResource(fxml + ".fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 420, 480);
-        primaryStage.setTitle(title);
-        primaryStage.setScene(scene);
     }
 
     public static void main(String[] args) {
