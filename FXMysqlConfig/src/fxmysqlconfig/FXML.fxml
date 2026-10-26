@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="ap1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmysqlconfig.FXMLController">
+
+    <children>
+        <Label alignment="CENTER" layoutX="0.0" layoutY="40.0" prefWidth="600.0" styleClass="titulo" text="Iniciar sesión" />
+        <Label alignment="CENTER" layoutX="0.0" layoutY="75.0" prefWidth="600.0" styleClass="subtitulo" text="FXMysqlConfig - Gestión con base de datos MySQL" />
+
+        <VBox fx:id="vbox1" layoutX="95.0" layoutY="125.0" prefHeight="90.0" prefWidth="410.0" spacing="15.0">
+            <children>
+                <TextField fx:id="tf1" promptText="Nombre de usuario" />
+                <PasswordField fx:id="pf1" promptText="Contraseña" />
+            </children>
+        </VBox>
+
+        <Button fx:id="button1" layoutX="260.0" layoutY="240.0" mnemonicParsing="false" text="Acceder" />
+
+        <Button fx:id="button2" layoutX="248.0" layoutY="295.0" mnemonicParsing="false" text="Registrarse" />
+
+        <Button fx:id="button3" layoutX="238.0" layoutY="350.0" mnemonicParsing="false" styleClass="boton-secundario" text="Configurar BD" />
+    </children>
+</AnchorPane>

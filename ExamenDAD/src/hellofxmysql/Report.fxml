@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="775.0" prefWidth="650.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hellofxmysql.ReportController">
+   <children>
+      <!-- Franja superior naranja -->
+      <Pane prefHeight="48.0" prefWidth="650.0" style="-fx-background-color: #F38120;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+      <!-- Logotipo de la empresa (AUTO REPAIR MECHANIC) -->
+      <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo_mecanica.png" />
+         </image>
+      </ImageView>
+
+      <!-- Encabezado con datos del taller y título del presupuesto -->
+      <VBox alignment="CENTER" layoutX="210.0" layoutY="65.0" prefHeight="145.0" prefWidth="400.0" spacing="3.0">
+         <children>
+            <Label style="-fx-font-size: 11px; -fx-text-fill: #333333;" text="Red de Talleres de mecánica Paco S.L. - Avda. Bélgica 8" />
+            <Label style="-fx-font-size: 11px; -fx-text-fill: #333333;" text="C.P.: 38008 - Santa Cruz de Tenerife | Tfno: 922222222" />
+            <Label style="-fx-font-size: 11px; -fx-text-fill: #333333;" text="Whatsapp: 655555555 | email: tallerespaco@info.es" />
+            <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #111111; -fx-padding: 12 0 0 0;" text="PRESUPUESTO TALLER DE MANTENIMIENTO" />
+         </children>
+      </VBox>
+
+      <!-- Fila: Presupuesto ID -->
+      <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="245.0" prefHeight="35.0" prefWidth="580.0" spacing="10.0">
+         <children>
+            <Label prefWidth="105.0" style="-fx-font-size: 12px; -fx-text-fill: #444444;" text="Presupuesto ID:" />
+            <TextField fx:id="tfPresupuestoId" prefHeight="26.0" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 2;" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+
+      <!-- Fila: Datos cliente -->
+      <HBox alignment="CENTER_LEFT" layoutX="35.0" layoutY="290.0" prefHeight="35.0" prefWidth="580.0" spacing="10.0">
+         <children>
+            <Label prefWidth="105.0" style="-fx-font-size: 12px; -fx-text-fill: #444444;" text="Datos cliente:" />
+            <HBox spacing="8.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="tfNombre" prefHeight="26.0" prefWidth="110.0" promptText="Nombre/Razón" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 2; -fx-font-size: 11px;" />
+                  <TextField fx:id="tfApellidos" prefHeight="26.0" prefWidth="110.0" promptText="Apellidos" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 2; -fx-font-size: 11px;" />
+                  <TextField fx:id="tfTelefono" prefHeight="26.0" prefWidth="115.0" promptText="Teléfono" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 2; -fx-font-size: 11px;" />
+                  <TextField fx:id="tfDni" prefHeight="26.0" prefWidth="115.0" promptText="DNI/CIF" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 2; -fx-font-size: 11px;" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+
+      <!-- Sección: Servicios básicos -->
+      <VBox layoutX="35.0" layoutY="345.0" prefWidth="580.0" spacing="8.0">
+         <children>
+            <Label style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #4B6584;" text="Servicios básicos:" />
+            <VBox spacing="7.0" style="-fx-padding: 3 0 0 10;">
+               <children>
+                  <CheckBox fx:id="cb1" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Cambio de aceite (79.54€)" />
+                  <CheckBox fx:id="cb2" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Revisión neumáticos (19.95€)" />
+                  <CheckBox fx:id="cb3" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Sustitución pastillas de freno eje delantero (90.23€)" />
+                  <CheckBox fx:id="cb4" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Sustitución pastillas de freno eje trasero (90.23€)" />
+                  <CheckBox fx:id="cb5" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Lavado de motor (49.45€)" />
+                  <CheckBox fx:id="cb6" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Revisión y cambio de filtros (19.95€)" />
+                  <CheckBox fx:id="cb7" mnemonicParsing="false" style="-fx-font-size: 11px;" text="Comprobación batería (19.95€)" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+
+      <!-- Sección de Totales: Total servicios de mantenimiento, I.G.I.C. y TOTAL -->
+      <VBox layoutX="35.0" layoutY="565.0" prefWidth="580.0" spacing="8.0">
+         <children>
+            <Label fx:id="lblTotalServicios" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #222222;" text="Total servicios mantenimieto:" />
+            <Label fx:id="lblIgic" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #222222;" text="I.G.I.C.:" />
+            <Label fx:id="lblTotal" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #111111;" text="TOTAL:" />
+         </children>
+      </VBox>
+
+      <!-- Botón Imprimir -->
+      <Button fx:id="btnImprimir" layoutX="265.0" layoutY="675.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="120.0" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4; -fx-cursor: hand;" text="Imprimir" />
+
+      <!-- Franja inferior naranja -->
+      <Pane layoutY="738.0" prefHeight="37.0" prefWidth="650.0" style="-fx-background-color: #F38120;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
+</AnchorPane>

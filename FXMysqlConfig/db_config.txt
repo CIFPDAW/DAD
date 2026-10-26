@@ -1,0 +1,6 @@
+ruta=localhost:3306/logins
+usuario=root
+contrasena=
+tabla=users
+columnaUsuario=user_name
+columnaContrasena=user_password

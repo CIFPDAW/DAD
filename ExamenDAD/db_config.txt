@@ -1,0 +1,6 @@
+ruta=localhost:3306/employees
+usuario=root
+contrasena=
+tabla=employees
+columnaUsuario=first_name
+columnaContrasena=last_name

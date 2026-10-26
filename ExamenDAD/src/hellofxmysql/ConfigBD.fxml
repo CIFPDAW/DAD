@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="680.0"
+           prefWidth="600.0"
+           xmlns="http://javafx.com/javafx/26"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="hellofxmysql.ConfigBDController"
+           stylesheets="@estilos.css">
+
+    <children>
+        <VBox alignment="CENTER"
+              maxWidth="420.0"
+              maxHeight="-Infinity"
+              spacing="14.0"
+              styleClass="form-card">
+
+            <padding>
+                <Insets top="25.0"
+                        right="30.0"
+                        bottom="25.0"
+                        left="30.0"/>
+            </padding>
+
+            <children>
+                <Label text="Configurar acceso MySQL"
+                       styleClass="titulo"/>
+
+                <Label text="Modifique el usuario y password de acceso. El resto de parámetros quedan predeterminados según el enunciado."
+                       wrapText="true"
+                       style="-fx-font-size: 11px; -fx-text-fill: #bdc3c7; -fx-text-alignment: center;"
+                       maxWidth="350.0"/>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Usuario MySQL (Administrador) *" styleClass="etiqueta"/>
+                        <TextField fx:id="tfUsuario" promptText="root"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Contraseña MySQL *" styleClass="etiqueta"/>
+                        <PasswordField fx:id="pfContrasena" promptText="Contraseña"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Base de datos (Predeterminado)" styleClass="etiqueta"/>
+                        <TextField fx:id="tfRuta" editable="false" style="-fx-opacity: 0.75; -fx-background-color: #1e2b37;"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Tabla de login (Predeterminado)" styleClass="etiqueta"/>
+                        <TextField fx:id="tfTabla" editable="false" style="-fx-opacity: 0.75; -fx-background-color: #1e2b37;"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Campo usuario (Predeterminado)" styleClass="etiqueta"/>
+                        <TextField fx:id="tfColUsuario" editable="false" style="-fx-opacity: 0.75; -fx-background-color: #1e2b37;"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="4.0" maxWidth="320.0">
+                    <children>
+                        <Label text="Campo contraseña (Predeterminado)" styleClass="etiqueta"/>
+                        <TextField fx:id="tfColContrasena" editable="false" style="-fx-opacity: 0.75; -fx-background-color: #1e2b37;"/>
+                    </children>
+                </VBox>
+
+                <HBox alignment="CENTER"
+                      spacing="16.0"
+                      style="-fx-padding: 10 0 0 0;">
+
+                    <children>
+                        <Button fx:id="btnAceptar"
+                                text="Aceptar"/>
+
+                        <Button fx:id="btnCancelar"
+                                text="Cancelar"
+                                styleClass="boton-secundario"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>
