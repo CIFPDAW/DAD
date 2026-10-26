@@ -1,0 +1,5 @@
+host=188.245.93.31
+port=3306
+database=dad
+user=dad
+password=tu_contraseña_segura
