@@ -123,7 +123,6 @@ public class MySQL {
         }
     }
 
-    /** Guarda los parámetros de conexión en db_config.txt */
     public void guardarEnArchivo() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_CONFIG))) {
             writer.write("ruta=" + ruta);
@@ -141,7 +140,6 @@ public class MySQL {
         }
     }
 
-    /** Carga la configuración desde db_config.txt. Devuelve null si no existe. */
     public static MySQL cargarDesdeArchivo() {
         String ruta = null;
         String usuario = null;

@@ -40,7 +40,6 @@ public class ConfigBDController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Rellenar campos con la config actual (memoria o archivo)
         MySQL actual = MySQL.bd;
         if (actual == null) {
             actual = MySQL.cargarDesdeArchivo();

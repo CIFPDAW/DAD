@@ -11,7 +11,6 @@ public class HelloFXMysql extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Si hay configuración guardada en el .txt, la cargamos al arrancar
         MySQL.bd = MySQL.cargarDesdeArchivo();
 
         Parent root = FXMLLoader.load(getClass().getResource("FXML.fxml"));

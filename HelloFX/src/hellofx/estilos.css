@@ -1,322 +1,73 @@
-/*
-================================================================================
-  estilos.css  —  HOJA DE ESTILOS GENÉRICA PARA JAVAFX
-================================================================================
-
-  OBJETIVO: que funcione SOLO CON VINCULARLA, sin tener que poner styleClass
-  a nada. Para eso se usan los SELECTORES POR DEFECTO de JavaFX: cada control
-  ya trae su propia clase CSS de serie:
-
-      Control Java      ->  selector CSS
-      ---------------------------------------
-      (nodo raíz)       ->  .root
-      Label             ->  .label
-      Button            ->  .button
-      TextField         ->  .text-field
-      PasswordField     ->  .password-field   (y también .text-field)
-      TextArea          ->  .text-area
-      CheckBox          ->  .check-box
-      RadioButton       ->  .radio-button
-      ComboBox          ->  .combo-box
-      ChoiceBox         ->  .choice-box
-      ListView          ->  .list-view
-      TableView         ->  .table-view
-      Hyperlink         ->  .hyperlink
-      Regla: nombre de la clase en minúsculas y separado con guiones.
-
-  ----------------------------------------------------------------------------
-  CÓMO VINCULAR ESTE CSS (elige UNA):
-  ----------------------------------------------------------------------------
-   A) En el FXML, en el NODO RAÍZ (lo que se ha hecho en este proyecto):
-          <AnchorPane ... stylesheets="@estilos.css">
-      (@ = ruta relativa al .fxml; si está en la misma carpeta, así tal cual)
-
-   B) En Scene Builder: selecciona el nodo raíz > Properties > Stylesheets > +
-
-   C) En Java, al crear la escena (aplica a todo lo que haya en ella):
-          scene.getStylesheets().add(
-              getClass().getResource("estilos.css").toExternalForm());
-
-  ----------------------------------------------------------------------------
-  SINTAXIS CSS EN JAVAFX (diferencias con el CSS web):
-  ----------------------------------------------------------------------------
-   - Todas las propiedades llevan el prefijo  -fx-   (-fx-background-color...)
-   - Color del TEXTO:  -fx-text-fill   (NO "color")
-   - .clase         -> nodos con esa styleClass (o la clase por defecto)
-   - #id            -> el nodo con ese fx:id      (ej:  #button1 { ... })
-   - :hover :focused :pressed :disabled :selected -> pseudoclases (estados)
-   - .padre .hijo   -> "hijo" que esté DENTRO de "padre"
-   - Comentarios SOLO con barra-asterisco (las dobles barras NO valen en CSS)
-
-  CÓMO PERSONALIZAR UN CONTROL CONCRETO:
-   - Darle una clase en el FXML:   styleClass="boton-peligro"
-     y en el CSS:                  .boton-peligro { ... }
-   - O por su fx:id:               #btnRegistrar { ... }
-================================================================================
-*/
-
-
-/* =============================================================================
-   1. VARIABLES Y FONDO GENERAL  (.root = el nodo raíz de cualquier escena)
-   -----------------------------------------------------------------------------
-   En JavaFX se pueden declarar "variables" de color dentro de .root y usarlas
-   después en cualquier regla (son los "looked-up colors").
-   >>> Para cambiar los colores de TODA la app, toca solo estas líneas. <<<
-   ========================================================================== */
 .root {
-    /* --- Variables propias (el nombre lo inventas tú, empieza por -) --- */
-    -color-primario:        #2563EB;   /* azul de botones y bordes activos */
-    -color-primario-oscuro: #1D4ED8;   /* azul al pasar el ratón          */
-    -color-texto:           #1E293B;   /* texto oscuro (sobre fondo claro) */
-    -color-texto-suave:     #64748B;   /* texto gris                       */
-    -color-borde:           #CBD5E1;   /* bordes de campos                 */
-    -color-campo:           #F8FAFC;   /* fondo de campos de texto         */
-    -color-tarjeta:         #FFFFFF;   /* fondo de tarjetas/paneles        */
-    -color-error:           #DC2626;   /* rojo                             */
-    -color-ok:              #16A34A;   /* verde                            */
-    -color-texto-fondo:     #FFFFFF;   /* texto que va directamente sobre
-                                          el fondo (blanco porque el fondo
-                                          es oscuro)                       */
+    -fx-background-color: #2c3e50;
+}
 
-    /* --- Variables que JavaFX (tema "Modena") ya usa por dentro ---
-       -fx-accent       -> color de selección (listas, tablas, checkbox...)
-       -fx-focus-color  -> el "brillo" del control que tiene el foco */
-    -fx-accent: -color-primario;
-    -fx-focus-color: -color-primario;
-    -fx-faint-focus-color: transparent;
-
-    /* --- Fondo degradado de la ventana --- */
-    -fx-background-color: linear-gradient(
-        to bottom right,
-        #0F172A,
-        #1D4ED8,
-        #38BDF8
-    );
-    /* Si prefieres un fondo liso:  -fx-background-color: #F1F5F9;
-       (y entonces pon -color-texto-fondo: #1E293B;)        */
-
-    /* --- Fuente para TODA la app (se hereda) --- */
-    -fx-font-family: "Arial";
+.label {
+    -fx-text-fill: #ecf0f1;
     -fx-font-size: 14px;
 }
 
-
-/* =============================================================================
-   2. TEXTOS (Label)
-   ========================================================================== */
-.label {
-    -fx-text-fill: -color-texto-fondo;   /* blanco sobre el degradado */
-}
-
-/* Clases opcionales: se ponen en el FXML con styleClass="titulo", etc. */
 .titulo {
-    -fx-font-size: 24px;
+    -fx-font-size: 22px;
     -fx-font-weight: bold;
+    -fx-text-fill: #ecf0f1;
 }
 
 .subtitulo {
     -fx-font-size: 13px;
-    -fx-opacity: 0.75;               /* más tenue que el texto normal */
+    -fx-text-fill: #bdc3c7;
 }
 
-.texto-error {
-    -fx-text-fill: -color-error;
-    -fx-font-weight: bold;
+.etiqueta {
+    -fx-text-fill: #ecf0f1;
+    -fx-font-size: 13px;
 }
 
-.texto-ok {
-    -fx-text-fill: -color-ok;
-    -fx-font-weight: bold;
-}
-
-
-/* =============================================================================
-   3. TARJETA / PANEL BLANCO (opcional)
-   -----------------------------------------------------------------------------
-   Ponle styleClass="form-card" a un VBox/HBox/Pane para tener un recuadro
-   blanco con esquinas redondeadas. Todo lo que haya DENTRO pasa a tener texto
-   oscuro automáticamente, porque se redefine la variable del color del texto.
-   ========================================================================== */
 .form-card {
-    -fx-background-color: -color-tarjeta;
-    -fx-background-radius: 16px;
-    -fx-padding: 30px;
-    -fx-spacing: 16px;              /* solo afecta si es VBox/HBox */
-    -fx-max-width: 390px;
-    -color-texto-fondo: -color-texto;   /* texto oscuro dentro */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 20, 0, 0, 6);
+    -fx-background-color: #34495e;
+    -fx-background-radius: 8px;
+    -fx-padding: 25px;
 }
 
-.form-card .subtitulo {
-    -fx-text-fill: -color-texto-suave;
-    -fx-opacity: 1;
-}
-
-
-/* =============================================================================
-   4. CAMPOS DE TEXTO  (TextField, PasswordField, TextArea)
-   -----------------------------------------------------------------------------
-   Separando selectores con coma se aplica la misma regla a varios controles.
-   ========================================================================== */
-.text-field,
-.password-field {
-    -fx-pref-height: 42px;
-    -fx-background-color: -color-campo;
-    -fx-border-color: -color-borde;
-    -fx-border-radius: 7px;
-    -fx-background-radius: 7px;
-    -fx-padding: 0 12px;
-    -fx-text-fill: -color-texto;                     /* texto que escribe el usuario */
-    -fx-prompt-text-fill: -color-texto-suave;        /* color del promptText */
-}
-
-.text-area {
-    -fx-border-color: -color-borde;
-    -fx-border-radius: 7px;
-    -fx-background-radius: 7px;
-    -fx-text-fill: -color-texto;
-}
-
-.text-area .content {                 /* zona interior donde se escribe */
-    -fx-background-color: -color-campo;
-    -fx-background-radius: 7px;
-}
-
-/* :focused = cuando el campo está seleccionado (cursor dentro) */
-.text-field:focused,
-.password-field:focused,
-.text-area:focused {
-    -fx-border-color: -color-primario;
-    -fx-border-width: 1.5px;
-}
-
-
-/* =============================================================================
-   5. BOTONES
-   ========================================================================== */
 .button {
-    -fx-pref-height: 40px;
-    -fx-min-width: 120px;
-    -fx-background-color: -color-primario;
+    -fx-background-color: #3498db;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 7px;
-    -fx-cursor: hand;                 /* manita al pasar el ratón */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 8, 0, 0, 2);
-}
-
-/* :hover = ratón encima */
-.button:hover {
-    -fx-background-color: -color-primario-oscuro;
-}
-
-/* :pressed = mientras se mantiene pulsado */
-.button:pressed {
-    -fx-scale-x: 0.97;
-    -fx-scale-y: 0.97;
-}
-
-/* :focused = botón con el foco (navegando con TAB) */
-.button:focused {
-    -fx-border-color: white;
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 7px;
-}
-
-/* :disabled = botón desactivado (setDisable(true) / disable="true") */
-.button:disabled {
-    -fx-opacity: 0.5;
-}
-
-/* --- Variantes opcionales (styleClass="boton-secundario", etc.) ---
-   Van DESPUÉS de .button para que sobrescriban sus valores. */
-.boton-secundario {
-    -fx-background-color: #E2E8F0;
-    -fx-text-fill: -color-texto;
-}
-
-.boton-secundario:hover {
-    -fx-background-color: -color-borde;
-}
-
-.boton-peligro {
-    -fx-background-color: -color-error;
-}
-
-.boton-peligro:hover {
-    -fx-background-color: #B91C1C;
-}
-
-
-/* =============================================================================
-   6. OTROS CONTROLES HABITUALES (por si salen en el examen)
-   -----------------------------------------------------------------------------
-   No hace falta tocarlos: si añades uno de estos controles al FXML,
-   ya sale con un estilo coherente.
-   ========================================================================== */
-
-/* CheckBox y RadioButton: el texto usa el color de texto sobre fondo */
-.check-box,
-.radio-button {
-    -fx-text-fill: -color-texto-fondo;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
 
-/* ComboBox y ChoiceBox (desplegables) */
-.combo-box,
-.choice-box {
-    -fx-pref-height: 40px;
-    -fx-background-color: -color-campo;
-    -fx-border-color: -color-borde;
-    -fx-border-radius: 7px;
-    -fx-background-radius: 7px;
+.button:hover {
+    -fx-background-color: #2980b9;
 }
 
-.combo-box .list-cell {               /* texto mostrado en el ComboBox */
-    -fx-text-fill: -color-texto;
+.boton-secundario {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
 }
 
-.choice-box .label {                  /* texto mostrado en el ChoiceBox */
-    -fx-text-fill: -color-texto;
+.boton-secundario:hover {
+    -fx-background-color: #7f8c8d;
 }
 
-/* ListView y TableView */
-.list-view,
-.table-view {
-    -fx-background-color: -color-tarjeta;
-    -fx-border-color: -color-borde;
-    -fx-background-radius: 7px;
-    -fx-border-radius: 7px;
+.text-field,
+.password-field {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #95a5a6;
+    -fx-border-color: #7f8c8d;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-padding: 8px;
 }
 
-.table-view .column-header-background {      /* cabecera de la tabla */
-    -fx-background-color: #E2E8F0;
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #3498db;
 }
 
-.table-view .column-header .label {
-    -fx-text-fill: -color-texto;
-    -fx-font-weight: bold;
+.form-card .text-field,
+.form-card .password-field {
+    -fx-background-color: #2c3e50;
 }
-
-/* Texto "No hay contenido" que sale en listas/tablas vacías */
-.list-view .placeholder .label,
-.table-view .placeholder .label {
-    -fx-text-fill: -color-texto-suave;
-}
-
-/* Hyperlink (enlaces tipo "¿Olvidaste la contraseña?") */
-.hyperlink {
-    -fx-text-fill: -color-texto-fondo;
-    -fx-underline: true;
-}
-
-
-/* =============================================================================
-   7. EJEMPLO DE ESTILO POR fx:id  (#)
-   -----------------------------------------------------------------------------
-   Solo afecta al control con ese fx:id. Descomenta para probar:
-
-   #button1 {
-       -fx-background-color: -color-ok;
-   }
-   ========================================================================== */
