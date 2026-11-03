@@ -1,1 +1,10 @@
 *.env
+/FXMysqlConfig/nbproject/private/
+/FXMysqlConfig/build/
+/FXMysqlConfig/dist/
+/Componentes/nbproject/private/
+/Componentes/build/
+/Componentes/dist/
+/ProbarComponentes/nbproject/private/
+/ProbarComponentes/build/
+/ProbarComponentes/dist/

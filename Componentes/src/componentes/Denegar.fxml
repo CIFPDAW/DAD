@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+
+
+<fx:root fx:id="denegar" mnemonicParsing="false" prefHeight="141.0" prefWidth="418.0" style="-fx-background-color: red; -fx-background-radius: 25px;" text="Rechazar" textFill="WHITE" type="Button" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" />

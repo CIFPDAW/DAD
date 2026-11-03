@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import componentes.Aceptar?>
+<?import componentes.Denegar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="335.0" style="-fx-padding: 20px;" type="VBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Información Personal" />
+      <Label text="Nombre" />
+      <TextField fx:id="name" />
+      <Label text="Apellido" />
+      <TextField fx:id="surname" />
+      <Label text="Correo" />
+      <TextField fx:id="email" />
+      <Label text="Telefono" />
+      <TextField fx:id="phone" />
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-padding: 20px; -fx-spacing: 20px;">
+         <children>
+            <Aceptar fx:id="btnAceptar" />
+            <Denegar fx:id="btnDenegar" prefHeight="100.0" prefWidth="335.0" />
+         </children>
+      </HBox>
+   </children>
+</fx:root>
